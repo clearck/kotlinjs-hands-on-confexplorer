@@ -37,7 +37,7 @@ class App : RComponent<RProps, RState>() {
                 +"Videos watched"
             }
             videoList {
-                videos = unwatchedVideos
+                videos = watchedVideos
             }
 
         }
