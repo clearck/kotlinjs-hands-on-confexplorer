@@ -1,4 +1,6 @@
 import react.dom.*
+import styled.*
+import kotlinx.css.*
 import kotlin.browser.document
 
 val unwatchedVideos = listOf(
@@ -18,7 +20,10 @@ fun main() {
 //        which takes care of appending the string to the enclosed HTML element.
 
 //        Simply put, you can think of the + as "append my string inside this element."
-        h1 {
+        styledH1 {
+            css {
+                fontFamily = "sans-serif"
+            }
             +"Hello, React+Kotlin/JS!"
         }
         div {
@@ -41,7 +46,12 @@ fun main() {
             }
 
         }
-        div {
+        styledDiv {
+            css {
+                position = Position.absolute
+                top = 10.px
+                right = 10.px
+            }
             h3 {
                 +"John Doe: Building and breaking things"
             }
