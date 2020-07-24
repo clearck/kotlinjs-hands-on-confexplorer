@@ -1,8 +1,5 @@
 import kotlinx.css.*
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
+import react.*
 import react.dom.div
 import react.dom.h3
 import react.dom.img
@@ -35,7 +32,7 @@ class App : RComponent<RProps, AppState>() {
             videoList {
                 videos = unwatchedVideos
                 selectedVideo = state.currentVideo
-                onSelectVideo = { video -> state.currentVideo = video }
+                onSelectVideo = { video -> setState { currentVideo = video } }
             }
 
             h3 {
@@ -43,6 +40,8 @@ class App : RComponent<RProps, AppState>() {
             }
             videoList {
                 videos = watchedVideos
+                selectedVideo = state.currentVideo
+                onSelectVideo = { video -> setState { currentVideo = video } }
             }
 
         }
