@@ -6,36 +6,29 @@ import styled.css
 import styled.styledP
 
 external interface VideoListProps : RProps {
-    var videoModels: List<VideoModel>
+    var videos: List<VideoModel>
+    var selectedVideo: VideoModel?
+    var onSelectVideo: (VideoModel) -> Unit
 }
 
-external interface VideoListState : RState {
-    var selectedVideoModel: VideoModel?
-}
-
-class VideoList : RComponent<VideoListProps, VideoListState>() {
+class VideoList : RComponent<VideoListProps, RState>() {
 
     override fun RBuilder.render() {
-        props.videoModels.forEach { video ->
+        props.videos.forEach { video ->
             styledP {
                 css {
                     cursor = Cursor.pointer
                 }
                 key = video.id.toString()
+
                 attrs {
-                    onClickFunction = {
-//                      State should only ever be modified from within the setState
-//                      lambda. This allows the React renderer to detect any changes
-//                      to the state, and to re-render portions of our UI quickly and
-//                      efficiently.
-                        setState {
-                            selectedVideoModel = video
-                        }
-                    }
+                    onClickFunction = { props.onSelectVideo(video) }
                 }
-                if (video == state.selectedVideoModel) {
+
+                if (video == props.selectedVideo) {
                     +"▶ "
                 }
+
                 +"${video.speaker}: ${video.title}"
             }
         }

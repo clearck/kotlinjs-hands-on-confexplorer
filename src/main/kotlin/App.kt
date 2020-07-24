@@ -10,7 +10,11 @@ import styled.css
 import styled.styledDiv
 import styled.styledH1
 
-class App : RComponent<RProps, RState>() {
+external interface AppState : RState {
+    var currentVideo: VideoModel?
+}
+
+class App : RComponent<RProps, AppState>() {
     override fun RBuilder.render() {
 //      h1 is really a function that takes a lambda parameter.
 //      When we write +, we are really invoking the function unaryPlus (through operator overloading)
@@ -28,15 +32,17 @@ class App : RComponent<RProps, RState>() {
                 +"Videos to watch"
             }
 
-            child(VideoList::class) {
-                attrs.videoModels = unwatchedVideos
+            videoList {
+                videos = unwatchedVideos
+                selectedVideo = state.currentVideo
+                onSelectVideo = { video -> state.currentVideo = video }
             }
 
             h3 {
                 +"Videos watched"
             }
             videoList {
-                videoModels = watchedVideos
+                videos = watchedVideos
             }
 
         }
