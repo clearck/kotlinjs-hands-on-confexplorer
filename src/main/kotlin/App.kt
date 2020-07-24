@@ -6,7 +6,6 @@ import react.RState
 import react.dom.div
 import react.dom.h3
 import react.dom.img
-import react.dom.p
 import styled.css
 import styled.styledDiv
 import styled.styledH1
@@ -30,14 +29,14 @@ class App : RComponent<RProps, RState>() {
             }
 
             child(VideoList::class) {
-                attrs.videos = unwatchedVideos
+                attrs.videoModels = unwatchedVideos
             }
 
             h3 {
                 +"Videos watched"
             }
             videoList {
-                videos = watchedVideos
+                videoModels = watchedVideos
             }
 
         }

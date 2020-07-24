@@ -4,20 +4,19 @@ import kotlinx.html.js.onClickFunction
 import react.*
 import styled.css
 import styled.styledP
-import kotlin.browser.window
 
 external interface VideoListProps : RProps {
-    var videos: List<Video>
+    var videoModels: List<VideoModel>
 }
 
 external interface VideoListState : RState {
-    var selectedVideo: Video?
+    var selectedVideoModel: VideoModel?
 }
 
 class VideoList : RComponent<VideoListProps, VideoListState>() {
 
     override fun RBuilder.render() {
-        props.videos.forEach { video ->
+        props.videoModels.forEach { video ->
             styledP {
                 css {
                     cursor = Cursor.pointer
@@ -30,11 +29,11 @@ class VideoList : RComponent<VideoListProps, VideoListState>() {
 //                      to the state, and to re-render portions of our UI quickly and
 //                      efficiently.
                         setState {
-                            selectedVideo = video
+                            selectedVideoModel = video
                         }
                     }
                 }
-                if (video == state.selectedVideo) {
+                if (video == state.selectedVideoModel) {
                     +"▶ "
                 }
                 +"${video.speaker}: ${video.title}"
