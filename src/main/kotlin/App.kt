@@ -67,8 +67,18 @@ class App : RComponent<RProps, AppState>() {
             videoPlayer {
                 video = currentVideo
                 unwatchedVideo = video in state.unwatchedVideos
-                onWatchedButtonPressed = { video ->
-                    throw NotImplementedError()
+                onWatchedButtonPressed = {
+                    if (video in state.unwatchedVideos) {
+                        setState {
+                            unwatchedVideos -= video
+                            watchedVideos += video
+                        }
+                    } else {
+                        setState {
+                            watchedVideos -= video
+                            unwatchedVideos += video
+                        }
+                    }
                 }
             }
         }
