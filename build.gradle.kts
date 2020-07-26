@@ -37,3 +37,8 @@ dependencies {
 }
 
 kotlin.target.browser { }
+
+// Heroku Deployment (chapter 9)
+tasks.register("stage") {
+    dependsOn("build")
+}
