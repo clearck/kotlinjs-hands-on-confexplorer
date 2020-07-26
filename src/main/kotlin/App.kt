@@ -1,3 +1,6 @@
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.await
+import kotlinx.coroutines.launch
 import kotlinx.css.*
 import react.*
 import react.dom.div
@@ -6,6 +9,7 @@ import react.dom.img
 import styled.css
 import styled.styledDiv
 import styled.styledH1
+import kotlin.browser.window
 
 external interface AppState : RState {
     var currentVideo: VideoModel?
@@ -17,16 +21,16 @@ class App : RComponent<RProps, AppState>() {
 
     // Override init method from state to fill state with predefined values
     override fun AppState.init() {
-        unwatchedVideos = listOf(
-            VideoModel(1, "Building and breaking things", "John Doe", "https://youtu.be/PsaFVLr8t4E"),
-            VideoModel(2, "The development process", "Jane Smith", "https://youtu.be/PsaFVLr8t4E"),
-            VideoModel(3, "The Web 7.0", "Matt Miller", "https://youtu.be/PsaFVLr8t4E")
-        )
+        unwatchedVideos = listOf()
+        watchedVideos = listOf()
 
-        watchedVideos = listOf(
-            VideoModel(4, "Mouseless development", "Tom Jerry", "https://youtu.be/PsaFVLr8t4E")
-        )
-
+        val mainScope = MainScope()
+        mainScope.launch {
+            val videos = VideoService.fetchVideos()
+            setState {
+                unwatchedVideos = videos
+            }
+        }
     }
 
     override fun RBuilder.render() {
